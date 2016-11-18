@@ -8,6 +8,7 @@ namespace HangmanGame.Objects
     private List<string> _hiddenWord = new List<string> {};
     private string _guess;
     private int _id;
+    private bool _gameOver = false;
     private static List<Hangman> _allGames = new List<Hangman> {};
     private List<string> _incorrectGuesses = new List<string> {};
     private List<string> _remainingLetters = new List<string> {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
@@ -43,6 +44,11 @@ namespace HangmanGame.Objects
       return _guess;
     }
 
+    public bool GetGameOver()
+    {
+      return _gameOver;
+    }
+
     public int GetAmountIncorrectGuesses()
     {
       return _incorrectGuesses.Count;
@@ -76,6 +82,16 @@ namespace HangmanGame.Objects
         _incorrectGuesses.Add(letter);
       }
       _remainingLetters.Remove(letter);
+      if (!(_hiddenWord.Contains("_")))
+      {
+        _gameOver = true;
+        _guess = "You Win!";
+      }
+      if (_incorrectGuesses.Count > 5)
+      {
+        _gameOver = true;
+        _guess = "You Lose!";
+      }
     }
   }
 }

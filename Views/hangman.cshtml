@@ -1,7 +1,7 @@
 <h1>Hangman!</h1><br>
 <h2>@Model.GetGuess()</h2>
 <div>
-  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|----------|</span><br>
+  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|^^^^^^^^^^|</span><br>
   <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</span><br>
   <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</span><br>
   @if (Model.GetAmountIncorrectGuesses() > 0)
@@ -42,11 +42,16 @@
 {
   <span>@letter </span>
 }
-<br><br><br>
-@foreach (string letter in Model.GetRemainingLetters())
+@if (!(Model.GetGameOver()))
 {
-  <span><a href="/human_hangman/@Model.GetID()/@letter">@letter</a> </span>
+  <br><br><br>
+  @foreach (string letter in Model.GetRemainingLetters())
+  {
+    <span><a href="/hangman/@Model.GetID()/@letter">@letter</a> </span>
+  }
 }
+<br><br>
+<a href="/">Start a new game</a>
 <style>
 span {font-family: monospace;};
 button {float: left;};
